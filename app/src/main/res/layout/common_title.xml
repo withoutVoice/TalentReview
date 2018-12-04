@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dip_50"
+    android:background="@color/transparent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_title_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_50"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_title_left"
+            android:layout_width="@dimen/dip_50"
+            android:layout_height="@dimen/dip_50"
+            android:paddingTop="@dimen/dip_15"
+            android:paddingBottom="@dimen/dip_15"
+            android:paddingLeft="@dimen/dip_15"
+            android:paddingRight="@dimen/dip_25"
+            android:src="@mipmap/ic_back_gold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_title_center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/tv_title_right"
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_title_right"
+            android:layout_width="@dimen/dip_50"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dip_15"
+            android:src="@mipmap/ic_add"
+            android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dip_15"
+            android:layout_marginRight="@dimen/dip_15"
+            android:layout_marginTop="@dimen/dip_7"
+            android:layout_marginBottom="@dimen/dip_7"
+            android:background="@drawable/bg_white_stroke_search"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="@dimen/dip_15"
+                android:layout_height="@dimen/dip_15"
+                android:layout_marginLeft="@dimen/dip_18"
+                android:src="@mipmap/ic_search_white"/>
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dip_7"
+                android:layout_marginRight="@dimen/dip_7"
+                android:singleLine="true"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:textColorHint="@color/text_color_middle"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_normal"
+                android:background="@color/transparent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_right_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dip_15"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/iv_right_icon"
+                android:layout_width="@dimen/dip_18"
+                android:layout_height="@dimen/dip_18"
+                android:layout_marginRight="@dimen/dip_5"
+                android:src="@mipmap/ic_filter"/>
+            <TextView
+                android:id="@+id/tv_right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="筛选"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

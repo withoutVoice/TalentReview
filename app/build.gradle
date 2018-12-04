@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.will.talentreview"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support:cardview-v7:26.+'
+    //下拉刷新
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    //图片加载
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //网络请求
+    compile 'com.tamic.novate:novate:1.5.2.3'
+    //压缩图片
+    compile 'com.ghnor:flora:1.0.0-alpha1'
+    //日期选择
+    compile 'com.github.codbking:PickTime:v1.0.1'
+    //html解析
+    compile 'org.jsoup:jsoup:1.10.2'
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg_color"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_bg_gray"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dip_15"
+            android:background="@drawable/bg_round_corner_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dip_15"
+                android:layout_height="@dimen/dip_15"
+                android:layout_marginBottom="@dimen/dip_13"
+                android:layout_marginLeft="@dimen/dip_13"
+                android:layout_marginRight="@dimen/dip_8"
+                android:layout_marginTop="@dimen/dip_13"
+                android:src="@mipmap/ic_phone" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_weight="1"
+                android:layout_width="@dimen/dip_0"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:hint="原手机号"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLength="20"
+                android:nextFocusForward="@+id/et_code"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_small" />
+            <TextView
+                android:id="@+id/tv_send_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dip_15"
+                android:gravity="center"
+                android:text="发送验证码"
+                android:textColor="#cd741e"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dip_5"
+            android:layout_marginLeft="@dimen/dip_15"
+            android:layout_marginRight="@dimen/dip_15"
+            android:background="@drawable/bg_round_corner_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dip_15"
+                android:layout_height="@dimen/dip_15"
+                android:layout_marginBottom="@dimen/dip_13"
+                android:layout_marginLeft="@dimen/dip_13"
+                android:layout_marginRight="@dimen/dip_8"
+                android:layout_marginTop="@dimen/dip_13"
+                android:src="@mipmap/ic_verification_code" />
+
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:hint="验证码"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="20"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dip_20"
+            android:layout_marginLeft="@dimen/dip_50"
+            android:layout_marginRight="@dimen/dip_50"
+            android:background="@drawable/bg_login_btn"
+            android:gravity="center"
+            android:padding="@dimen/dip_10"
+            android:text="提交"
+            android:textSize="@dimen/text_size_normal" />
+    </LinearLayout>
+</LinearLayout>

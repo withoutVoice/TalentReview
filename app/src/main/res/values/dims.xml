@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dip_0">0dp</dimen>
+    <dimen name="dip_0.5">0.5dp</dimen>
+    <dimen name="dip_1">1dp</dimen>
+    <dimen name="dip_2">2dp</dimen>
+    <dimen name="dip_2.5">2.5dp</dimen>
+    <dimen name="dip_3">3dp</dimen>
+    <dimen name="dip_4">4dp</dimen>
+    <dimen name="dip_5">5dp</dimen>
+    <dimen name="dip_6">6dp</dimen>
+    <dimen name="dip_7">7dp</dimen>
+    <dimen name="dip_8">8dp</dimen>
+    <dimen name="dip_9">9dp</dimen>
+    <dimen name="dip_10">10dp</dimen>
+    <dimen name="dip_11">11dp</dimen>
+    <dimen name="dip_12">12dp</dimen>
+    <dimen name="dip_13">13dp</dimen>
+    <dimen name="dip_14">14dp</dimen>
+    <dimen name="dip_15">15dp</dimen>
+    <dimen name="dip_16">16dp</dimen>
+    <dimen name="dip_17">17dp</dimen>
+    <dimen name="dip_18">18dp</dimen>
+    <dimen name="dip_19">19dp</dimen>
+    <dimen name="dip_20">20dp</dimen>
+    <dimen name="dip_22">22dp</dimen>
+    <dimen name="dip_23">23dp</dimen>
+    <dimen name="dip_25">25dp</dimen>
+    <dimen name="dip_27">27dp</dimen>
+    <dimen name="dip_30">30dp</dimen>
+    <dimen name="dip_33">33dp</dimen>
+    <dimen name="dip_35">35dp</dimen>
+    <dimen name="dip_40">40dp</dimen>
+    <dimen name="dip_43">43dp</dimen>
+    <dimen name="dip_42">42dp</dimen>
+    <dimen name="dip_45">45dp</dimen>
+    <dimen name="dip_50">50dp</dimen>
+    <dimen name="dip_55">55dp</dimen>
+    <dimen name="dip_60">60dp</dimen>
+    <dimen name="dip_65">65dp</dimen>
+    <dimen name="dip_70">70dp</dimen>
+    <dimen name="dip_80">80dp</dimen>
+    <dimen name="dip_90">90dp</dimen>
+
+    <dimen name="dip_100">100dp</dimen>
+    <dimen name="dip_120">120dp</dimen>
+    <dimen name="dip_130">130dp</dimen>
+    <dimen name="dip_150">150dp</dimen>
+    <dimen name="dip_160">160dp</dimen>
+    <dimen name="dip_165">165dp</dimen>
+    <dimen name="dip_170">170dp</dimen>
+    <dimen name="dip_180">180dp</dimen>
+    <dimen name="dip_190">190dp</dimen>
+    <dimen name="dip_200">200dp</dimen>
+    <dimen name="dip_290">290dp</dimen>
+    <dimen name="dip_300">300dp</dimen>
+    <dimen name="dip_360">360dp</dimen>
+
+    <dimen name="common_divider_height">0.5dp</dimen>
+
+    <!-- 标题栏字体大小-->
+    <dimen name="text_size_title">18dp</dimen>
+    <!-- 标题栏字体大小-->
+    <dimen name="text_size_large">16dp</dimen>
+    <!-- 通用常规字体大小-->
+    <dimen name="text_size_normal">14dp</dimen>
+    <!-- 通用较小字体大小-->
+    <dimen name="text_size_small">12dp</dimen>
+
+    <dimen name="padding_XS">3dp</dimen>
+    <dimen name="padding_S">5dp</dimen>
+    <dimen name="padding_M">7dp</dimen>
+    <dimen name="padding_L">10dp</dimen>
+    <dimen name="padding_XL">15dp</dimen>
+    <dimen name="padding_XXL">20dp</dimen>
+
+    <dimen name="margin_XS">3dp</dimen>
+    <dimen name="margin_S">5dp</dimen>
+    <dimen name="margin_M">7dp</dimen>
+    <dimen name="margin_L">10dp</dimen>
+    <dimen name="margin_XL">15dp</dimen>
+    <dimen name="margin_XXL">20dp</dimen>
+
+    <!-- 标题栏字体大小-->
+    <dimen name="text_size_title_18">18sp</dimen>
+    <!-- 通用常规字体大小-->
+    <dimen name="text_size_normal_16">16sp</dimen>
+    <!-- 通用较小字体大小-->
+    <dimen name="text_size_small_12">12sp</dimen>
+
+    <dimen name="font_size_20">20sp</dimen>
+
+    <dimen name="font_size_30">30sp</dimen>
+</resources>

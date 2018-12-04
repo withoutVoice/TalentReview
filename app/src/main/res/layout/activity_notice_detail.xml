@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg_color">
+    <include
+        android:id="@+id/include"
+        layout="@layout/common_title"/>
+    <ProgressBar
+        android:id="@+id/pb_web"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_2"
+        android:max="100"
+        android:progressDrawable="@drawable/bg_web_view_progress"
+        android:background="@color/white"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:background="@color/common_bg_gray">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dip_15"
+                android:gravity="center"
+                android:text="标题"
+                android:textColor="@color/text_color_deep"
+                android:textSize="@dimen/text_size_title"/>
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="2018-12-01"
+                android:textColor="@color/text_color_light"
+                android:textSize="@dimen/text_size_small"/>
+            <com.will.talentreview.view.NoScrollWebView
+                android:id="@+id/web_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dip_100"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
