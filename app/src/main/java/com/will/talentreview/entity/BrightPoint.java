@@ -15,6 +15,7 @@ public class BrightPoint implements Serializable{
     private String content;
     private int sort;
     private String createTime;
+    private String createTimeStr;
     private String createUser;
     private int isDelete;
     private String updateTime;
@@ -67,6 +68,14 @@ public class BrightPoint implements Serializable{
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCreateTimeStr() {
+        return createTimeStr;
+    }
+
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
     }
 
     public String getCreateUser() {

@@ -22,6 +22,7 @@ import com.will.talentreview.utils.RequestUtil;
 import com.will.talentreview.utils.StringUtils;
 import com.will.talentreview.view.CommonTitle;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,7 +62,7 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
     protected int getContentView() {
         return R.layout.activity_product_detail;
     }
-    https://github.com/withoutVoice/TalentReview.git
+
     @Override
     protected void initView() {
         commonTitle = new CommonTitle(this, findViewById(R.id.include), CommonTitle.TITLE_TYPE_4);
@@ -178,6 +179,8 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
                         return;
                     }
                     if (loginInfo.getStatus() == AppConstants.AuthenticationStatus.STATUS_2) {
+                        BrightPoint data= (BrightPoint) item.getTag();
+                        data.setCreateTime(mProduct.getAgeLimit());
                         Intent intent = new Intent(activity, WebViewActivity.class);
                         intent.putExtra(IntentKey.FROM_WHAT, AppConstants.WebFromWhat.BRIGHT_POINT);
                         intent.putExtra(IntentKey.WEB_CONTENT, (BrightPoint) item.getTag());

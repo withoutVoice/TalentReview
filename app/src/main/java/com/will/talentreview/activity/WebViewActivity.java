@@ -1,5 +1,6 @@
 package com.will.talentreview.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -22,6 +23,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.util.Date;
 
 /**
  * Created by 38093 on 2018/12/1.
@@ -92,7 +95,7 @@ public class WebViewActivity extends BaseActivity {
                     finish();
                 }
                 title = point.getTitle();
-                date = point.getCreateTime();
+                date=point.getCreateTimeStr();
                 html = point.getContent();
                 break;
         }

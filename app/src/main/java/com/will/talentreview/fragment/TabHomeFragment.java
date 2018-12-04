@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,17 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            getGalleryData();
+            getNotice();
+            getTodayRecommend();
+            getNewPlayer();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_search:
@@ -292,7 +304,10 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
             mtvInterestRate.setText(StringUtils.excludeNull(product.getAnnualInterestRate(), "0.0"));
             mtvType.setText("类型:" + StringUtils.excludeNull(product.getProductType(), "未知"));
             mtvYearLimit.setText("期限" + StringUtils.excludeNull(product.getAgeLimit(), "0") + "月");
-            mtvMoneyLimit.setText("起投" + StringUtils.excludeNull(product.getProductRule(), "0") + "元");
+            if(TextUtils.isEmpty(product.getPurchaseMoney())){
+                mtvMoneyLimit.setText("起投0" + "元");
+            }
+            mtvMoneyLimit.setText("起投" +product.getPurchaseMoney()+ "万元");
         }
     }
 
