@@ -41,6 +41,7 @@ public class UpdatePhoneActivity extends BaseActivity implements View.OnClickLis
     private EditText metPhone;
     private EditText metCode;
     private TextView mtvSendCode;
+    private TextView mtvSubmit;
 
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -57,14 +58,14 @@ public class UpdatePhoneActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initView() {
         CommonTitle commonTitle = new CommonTitle(this, findViewById(R.id.include), CommonTitle.TITLE_TYPE_4);
-        commonTitle.setTitleCenter("更好手机号");
+        commonTitle.setTitleCenter("更换手机号");
         commonTitle.setTitleLeftListener();
 
         metPhone = findViewById(R.id.et_phone);
         metCode = findViewById(R.id.et_code);
         mtvSendCode = findViewById(R.id.tv_send_code);
         mtvSendCode.setOnClickListener(this);
-        findViewById(R.id.tv_submit).setOnClickListener(this);
+        mtvSubmit=findViewById(R.id.tv_submit);
     }
 
     @Override
@@ -74,11 +75,13 @@ public class UpdatePhoneActivity extends BaseActivity implements View.OnClickLis
 
         if(!isFirstStep){
             metPhone.setHint("新手机号");
+            mtvSubmit.setText("下一步");
         }else {
             LoginInfo loginInfo = MyApplication.getInstance().getLoginInfo();
             if (loginInfo != null) {
                 metPhone.setText(StringUtils.excludeNull(loginInfo.getMobilePhone()));
             }
+            mtvSubmit.setText("确定");
         }
     }
 

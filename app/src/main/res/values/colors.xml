@@ -11,6 +11,7 @@
     <color name="common_bg_gray">#f2f2f2</color>
     <color name="common_divider_color">#e4e4e4</color>
     <color name="gold">#fdce96</color>
+    <color name="search_bg_color">#797979</color>
 
     <color name="transparent">#00000000</color>
     <color name="trans_black_deep">#90000000</color>

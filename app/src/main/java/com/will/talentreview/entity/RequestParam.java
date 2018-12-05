@@ -38,4 +38,15 @@ public class RequestParam {
     public Map getParams() {
         return params;
     }
+
+    public void clearExceptDefault(){
+        params.clear();
+        LoginInfo loginInfo = MyApplication.getInstance().getLoginInfo();
+        if (loginInfo != null) {
+            params.put("token", loginInfo.getToken());
+            params.put("userId", StringUtils.excludeNull(loginInfo.getId(),"0"));
+        }else {
+            params.put("userId",0);
+        }
+    }
 }

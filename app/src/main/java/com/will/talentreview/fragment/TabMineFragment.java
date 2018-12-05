@@ -2,6 +2,7 @@ package com.will.talentreview.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
@@ -39,6 +40,7 @@ import com.will.talentreview.utils.RequestUtil;
 import com.will.talentreview.utils.StringUtils;
 import com.will.talentreview.utils.UriUtil;
 import com.will.talentreview.view.CircleImageView;
+import com.will.talentreview.view.CommonTitle;
 
 import java.io.File;
 import java.text.ParseException;
@@ -86,7 +88,8 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected void initView(View contentView) {
-
+        CommonTitle commonTitle=new CommonTitle(getActivity(),contentView.findViewById(R.id.include),CommonTitle.TITLE_TYPE_5);
+        commonTitle.setTitleCenter("个人中心");
         mivAvatar = contentView.findViewById(R.id.iv_avatar);
         mtvName = contentView.findViewById(R.id.tv_name);
         mtvAuthentication = contentView.findViewById(R.id.tv_authentication);
@@ -123,20 +126,21 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
                 birthday = "";
             }
             GlideUtil.showAvatar(getActivity(), loginInfo.getHeadUrl(), mivAvatar);
-            mtvName.setText(StringUtils.excludeNull(loginInfo.getMobilePhone(), "未知"));
+            mtvName.setText(StringUtils.excludeNull(loginInfo.getNickName(), StringUtils.excludeNull(loginInfo.getMobilePhone(),"未知")));
             mtvBirthday.setText(birthday);
             switch (loginInfo.getStatus()) {
                 case AppConstants.AuthenticationStatus.STATUS_0:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "未认证"));
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "未认证")+" >");
                     break;
                 case AppConstants.AuthenticationStatus.STATUS_1:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "待审核"));
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "待审核")+" >");
                     break;
                 case AppConstants.AuthenticationStatus.STATUS_2:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "已认证"));
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "已认证")+" >");
+                    mtvAuthentication.setTextColor(Color.parseColor("#00cc99"));
                     break;
                 case AppConstants.AuthenticationStatus.STATUS_3:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "认证失败"));
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "认证失败")+" >");
                     break;
             }
 
@@ -375,7 +379,6 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
         RequestUtil.getInstance(getActivity()).getLoginInfo(TAG_LOGIN_INFO, param, new CustomRequestCallback<LoginInfo>() {
             @Override
             public void onRequestFinished(RequestResult<LoginInfo> requestResult) {
-                closeProgressDialog();
                 onTokenInvalid(requestResult.getCode());
                 if (requestResult.isSuccess()) {
                     LoginInfo loginInfo = requestResult.getData();

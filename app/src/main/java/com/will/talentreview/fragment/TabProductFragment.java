@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,9 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.tamic.novate.RxApiManager;
 import com.will.talentreview.R;
 import com.will.talentreview.activity.ProductDetailActivity;
 import com.will.talentreview.activity.SearchProductActivity;
@@ -29,6 +33,7 @@ import com.will.talentreview.constant.RequestKey;
 import com.will.talentreview.entity.Dict;
 import com.will.talentreview.entity.ListBean;
 import com.will.talentreview.entity.Product;
+import com.will.talentreview.entity.ProductFilter;
 import com.will.talentreview.entity.RequestParam;
 import com.will.talentreview.entity.RequestResult;
 import com.will.talentreview.request.CustomRequestCallback;
@@ -43,6 +48,7 @@ import java.util.List;
 /**
  * @author chenwei
  * @time 2018-11-19
+ * 项目页
  */
 
 public class TabProductFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -55,9 +61,6 @@ public class TabProductFragment extends BaseFragment implements View.OnClickList
 
     private View contentView;
     private LinearLayout mllTab;
-    private LinearLayout mllFinancing;
-    private LinearLayout mllAssets;
-    private LinearLayout mllRecommend;
     private SmartRefreshLayout mRefreshLayout;
     private ListView mGridView;
     private ProductListAdapter mAdapter;
@@ -68,8 +71,6 @@ public class TabProductFragment extends BaseFragment implements View.OnClickList
     private List<Dict> mDictTypes;
     private List<Dict> mDictBottomTypes;
     private Dict currentClassDict;
-    private Dict currentTypeDict;
-    private Dict currentBottomTypeDict;
     private ProductTypeGridAdapter mBasicTypeAdapter;
     private ProductTypeGridAdapter mProductTypeAdapter;
 
@@ -87,19 +88,11 @@ public class TabProductFragment extends BaseFragment implements View.OnClickList
         CommonTitle commonTitle = new CommonTitle(activity, contentView.findViewById(R.id.include), CommonTitle.TITLE_TYPE_7);
         commonTitle.setLlRightBtnClickListener("筛选", this);
         commonTitle.setBackgroundColor(getResources().getColor(R.color.black));
-        commonTitle.setLlTitleSearchClickListener("",this);
+        commonTitle.setLlTitleSearchClickListener("", this);
         mllTab = contentView.findViewById(R.id.ll_tab);
         mRefreshLayout = contentView.findViewById(R.id.refresh_layout);
         mGridView = contentView.findViewById(R.id.list_view);
 
-        mllFinancing = contentView.findViewById(R.id.ll_financing);
-        mllAssets = contentView.findViewById(R.id.ll_assets);
-        mllRecommend = contentView.findViewById(R.id.ll_recommend);
-
-        mllFinancing.setOnClickListener(this);
-        mllAssets.setOnClickListener(this);
-        mllRecommend.setOnClickListener(this);
-        mllFinancing.performClick();
         mGridView.setOnItemClickListener(this);
     }
 
@@ -137,30 +130,16 @@ public class TabProductFragment extends BaseFragment implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_search:
-                startActivityForResult(new Intent(activity, SearchProductActivity.class),1);
+                startActivityForResult(new Intent(activity, SearchProductActivity.class), 1);
                 break;
             case R.id.ll_right_btn:
                 showProductFilterDialog();
                 break;
-            case R.id.ll_financing:
-                mllFinancing.setSelected(true);
-                mllAssets.setSelected(false);
-                mllRecommend.setSelected(false);
-                currentClassDict = (Dict) view.getTag();
-                mRefreshLayout.autoRefresh();
-                break;
-            case R.id.ll_assets:
-                mllFinancing.setSelected(false);
-                mllAssets.setSelected(true);
-                mllRecommend.setSelected(false);
-                break;
-            case R.id.ll_recommend:
-                mllFinancing.setSelected(false);
-                mllAssets.setSelected(false);
-                mllRecommend.setSelected(true);
-                break;
             case R.id.ll_tab_item:
                 if (view.isSelected()) {
+                    return;
+                }
+                if (mRefreshLayout.getState() != RefreshState.None) {
                     return;
                 }
                 for (int i = 0; i < mllTab.getChildCount(); i++) {
@@ -174,11 +153,19 @@ public class TabProductFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    private synchronized void setTabClickable(boolean clickable) {
+        if (mllTab != null && mllTab.getChildCount() > 0) {
+            for (int i = 0; i < mllTab.getChildCount(); i++) {
+                mllTab.getChildAt(i).setClickable(clickable);
+            }
+        }
+    }
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
         intent.putExtra(IntentKey.PRODUCT, mProducts.get(i));
-        startActivityForResult(intent,0);
+        startActivityForResult(intent, 0);
     }
 
     private void setTopTab() {
@@ -207,13 +194,14 @@ public class TabProductFragment extends BaseFragment implements View.OnClickList
     }
 
     private void getData() {
+        RxApiManager.get().cancel(TAG_PRODUCT_LIST);
         RequestParam param = new RequestParam();
         param.addParam(RequestKey.PAGE, page);
         param.addParam(RequestKey.PAGE_SIZE, Config.PAGE_SIZE);
         param.addParam("startAgeLimit", metYearLimitLeft.getText().toString());
-        param.addParam("endAgeLimit", metYearLimitLeft.getText().toString());
+        param.addParam("endAgeLimit", metYearLimitRight.getText().toString());
         param.addParam("startEarnings", metEarnLeft.getText().toString());
-        param.addParam("endEarnings", metEarnRight == null ? "" : metYearLimitLeft.getText().toString());
+        param.addParam("endEarnings", metEarnRight.getText().toString());
         param.addParam("startMoney", metMoneyLimitLeft.getText().toString());
         param.addParam("endMoney", metMoneyLimitRight.getText().toString());
         param.addParam("productClassId", currentClassDict == null ? "" : currentClassDict.getId());
@@ -224,6 +212,7 @@ public class TabProductFragment extends BaseFragment implements View.OnClickList
             public void onRequestFinished(RequestResult requestResult) {
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
+//                setTabClickable(true);
                 onTokenInvalid(requestResult.getCode());
                 if (requestResult.isSuccess()) {
                     if (page == 1) {

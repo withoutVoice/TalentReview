@@ -15,8 +15,11 @@ import android.widget.TextView;
 
 import com.will.talentreview.R;
 import com.will.talentreview.activity.AdvantageListActivity;
+import com.will.talentreview.activity.BaseActivity;
 import com.will.talentreview.activity.MainActivity;
+import com.will.talentreview.activity.MyMessageActivity;
 import com.will.talentreview.activity.ProductDetailActivity;
+import com.will.talentreview.activity.ScanQrCodeActivity;
 import com.will.talentreview.activity.WebViewActivity;
 import com.will.talentreview.activity.NoticeListActivity;
 import com.will.talentreview.activity.SearchProductActivity;
@@ -41,6 +44,7 @@ import java.util.List;
 /**
  * @author chenwei
  * @time 2018-11-19
+ * 首页
  */
 
 public class TabHomeFragment extends BaseFragment implements View.OnClickListener {
@@ -77,6 +81,8 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
     private Product mProduct1;
     private Product mProduct2;
 
+    private boolean isRunning;
+
 
     @Override
     protected int getContentView() {
@@ -85,10 +91,6 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected void initView(View contentView) {
-        CommonTitle commonTitle = new CommonTitle(activity, contentView.findViewById(R.id.include), CommonTitle.TITLE_TYPE_6);
-        commonTitle.setLlTitleSearchClickListener("", this);
-        commonTitle.getSearchEditText().setOnClickListener(this);
-
         mllIndication = contentView.findViewById(R.id.ll_indications);
         mViewPager = contentView.findViewById(R.id.view_pager);
 
@@ -108,6 +110,9 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
         mtvAdvantage = contentView.findViewById(R.id.tv_advantage);
         mtvBuy = contentView.findViewById(R.id.tv_buy);
 
+        contentView.findViewById(R.id.iv_title_left).setOnClickListener(this);
+        contentView.findViewById(R.id.iv_title_right).setOnClickListener(this);
+        contentView.findViewById(R.id.ll_search).setOnClickListener(this);
         mtvNotice.setOnClickListener(this);
         mtvNoticeMore.setOnClickListener(this);
         mllInvestment.setOnClickListener(this);
@@ -118,6 +123,8 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
         mtvBuy.setOnClickListener(this);
         mtvAdvantage.setOnClickListener(this);
         mllRecommend.performClick();
+
+        ((BaseActivity) getActivity()).setStatusBarTranslucentLayout(contentView.findViewById(R.id.ll_home_title));
     }
 
     @Override
@@ -152,12 +159,13 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
         getNotice();
         getTodayRecommend();
         getNewPlayer();
+        autoScroll();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             getGalleryData();
             getNotice();
             getTodayRecommend();
@@ -168,6 +176,12 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_title_left:
+                startActivity(new Intent(getActivity(), ScanQrCodeActivity.class));
+                break;
+            case R.id.iv_title_right:
+                startActivity(new Intent(getActivity(), MyMessageActivity.class));
+                break;
             case R.id.ll_search:
                 startActivity(new Intent(activity, SearchProductActivity.class));
                 break;
@@ -273,6 +287,37 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    private void autoScroll() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                isRunning = true;
+                while (isRunning) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int size = mViewPager.getChildCount();
+                            if (size > 1) {
+                                int current = mViewPager.getCurrentItem();
+                                if (current + 1 < size) {
+                                    mViewPager.setCurrentItem(current + 1);
+                                } else {
+                                    mViewPager.setCurrentItem(0);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }.start();
+    }
+
     private void setNotice(NoticeInfo notice) {
         if (notice == null) {
             mtvNotice.setText("暂无");
@@ -303,11 +348,11 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
             mtvRecommendTitle.setText(StringUtils.excludeNull(product.getProductName()));
             mtvInterestRate.setText(StringUtils.excludeNull(product.getAnnualInterestRate(), "0.0"));
             mtvType.setText("类型:" + StringUtils.excludeNull(product.getProductType(), "未知"));
-            mtvYearLimit.setText("期限" + StringUtils.excludeNull(product.getAgeLimit(), "0") + "月");
-            if(TextUtils.isEmpty(product.getPurchaseMoney())){
+            mtvYearLimit.setText("期限" + StringUtils.excludeNull(product.getAgeLimit(), "0") + "个月");
+            if (TextUtils.isEmpty(product.getPurchaseMoney())) {
                 mtvMoneyLimit.setText("起投0" + "元");
             }
-            mtvMoneyLimit.setText("起投" +product.getPurchaseMoney()+ "万元");
+            mtvMoneyLimit.setText("起投" + product.getPurchaseMoney() + "万元");
         }
     }
 
@@ -435,5 +480,11 @@ public class TabHomeFragment extends BaseFragment implements View.OnClickListene
             getTodayRecommend();
             getNewPlayer();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
     }
 }

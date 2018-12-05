@@ -32,11 +32,6 @@
             android:configChanges="screenSize|orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity
-            android:name=".activity.RegisterActivity"
-            android:configChanges="screenSize|orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--主界面-->
         <activity
             android:name=".activity.MainActivity"
@@ -127,6 +122,12 @@
         <!--机构详情-->
         <activity
             android:name=".activity.MechanismActivity"
+            android:configChanges="screenSize|orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!--扫码-->
+        <activity
+            android:name=".activity.ScanQrCodeActivity"
             android:configChanges="screenSize|orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />

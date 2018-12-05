@@ -33,6 +33,8 @@ public class AppConstants {
         public static final int GALLERY = 2;
         //产品亮点
         public static final int BRIGHT_POINT = 3;
+        //扫码
+        public static final int SCAN_CODE = 4;
     }
 
     public class ProductLabel {

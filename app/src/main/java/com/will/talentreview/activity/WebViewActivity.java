@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -64,6 +65,7 @@ public class WebViewActivity extends BaseActivity {
         String title = "";
         String date = "";
         String html = "";
+        String url="";
         switch (fromWhat) {
             case AppConstants.WebFromWhat.GALLERY:
                 commonTitle.setTitleCenter("详情");
@@ -98,6 +100,15 @@ public class WebViewActivity extends BaseActivity {
                 date=point.getCreateTimeStr();
                 html = point.getContent();
                 break;
+            case AppConstants.WebFromWhat.SCAN_CODE:
+                commonTitle.setTitleCenter("详情");
+                title = "";
+                date="";
+                html = "";
+                url=getIntent().getStringExtra(IntentKey.CONTENT);
+                tvTitle.setVisibility(View.GONE);
+                tvDate.setVisibility(View.GONE);
+                break;
         }
         tvTitle.setText(StringUtils.excludeNull(title));
         tvDate.setText(StringUtils.excludeNull(date, DateUtils.getYyyyMMdd(System.currentTimeMillis())));
@@ -121,8 +132,19 @@ public class WebViewActivity extends BaseActivity {
                 }
             }
         });
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+        });
         html = getNewContent(html);
-        mWebView.loadData(StringUtils.excludeNull(html), "text/html; charset=UTF-8", null);
+        if(TextUtils.isEmpty(url)){
+            mWebView.loadData(StringUtils.excludeNull(html), "text/html; charset=UTF-8", null);
+        }else {
+            mWebView.loadUrl(url);
+        }
     }
 
     /**

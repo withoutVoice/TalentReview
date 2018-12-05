@@ -1,6 +1,7 @@
 package com.will.talentreview.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -105,7 +106,11 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
         }
         commonTitle.setTitleCenter(StringUtils.excludeNull(mProduct.getProductName(), "未知"));
         mtvProductType.setText(StringUtils.excludeNull(mProduct.getProductType(), "未知"));
-        mtvProductScope.setText(StringUtils.excludeNull(mProduct.getProductRule(), "0万元"));
+        if (TextUtils.isEmpty(mProduct.getProductRule())) {
+            mtvProductScope.setText("0元");
+        } else {
+            mtvProductScope.setText(mProduct.getProductRule() + "万元");
+        }
         mtvBottomType.setText(StringUtils.excludeNull(mProduct.getBehindType(), "未知"));
         mtvYearLimit.setText(StringUtils.excludeNull(mProduct.getAgeLimit(), "0") + "个月");
         mtvMoneyPurpose.setText(StringUtils.excludeNull(mProduct.getMoenUse(), "未知"));
@@ -118,22 +123,23 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
 
     private void initEarn(List<ProductEarn> earns) {
         if (earns == null || earns.isEmpty()) {
-            mtvInterestRate1.setText("");
-            mtvInterestRate2.setText("0.0%");
+            mtvInterestRate1.setText("0.0%");
+            mtvInterestRate2.setText("");
             mtvInterestRate3.setText("");
-            mtvRange1.setText("");
-            mtvRange2.setText("0元-0元");
+            mtvRange1.setText("0元-0元");
+            mtvRange2.setText("");
             mtvRange3.setText("");
             mllInterestRate2.setVisibility(View.GONE);
             mllInterestRate3.setVisibility(View.GONE);
         } else if (earns.size() == 1) {
             ProductEarn earn = earns.get(0);
-            mtvInterestRate1.setText("");
-            mtvInterestRate2.setText(StringUtils.excludeNull(earns.get(0).getEarnings(), "0.0") + "%");
-            mtvInterestRate3.setText("");
+            mtvInterestRate1.setText(StringUtils.excludeNull(earns.get(0).getEarnings(), "0.0") + "%");
             mtvRange1.setText("");
-            mtvRange2.setText(StringUtils.excludeNull(earn.getStartEarnings(), "0") + "万元-" + StringUtils.excludeNull(earn.getEndEarnings(), "0") + "万元");
-            mtvRange3.setText("");
+            if (StringUtils.isEquals(earn.getEndEarnings(), "0") || TextUtils.isEmpty(earn.getEndEarnings())) {
+                mtvRange1.setText(StringUtils.excludeNull(earn.getStartEarnings(), "0") + "万元以上");
+            } else {
+                mtvRange1.setText(StringUtils.excludeNull(earn.getStartEarnings(), "0") + "万元-" + earn.getEndEarnings() + "万元");
+            }
             mllInterestRate2.setVisibility(View.GONE);
             mllInterestRate3.setVisibility(View.GONE);
         } else if (earns.size() == 2) {
@@ -141,10 +147,16 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
             ProductEarn earn2 = earns.get(1);
             mtvInterestRate1.setText(StringUtils.excludeNull(earn1.getEarnings(), "0.0") + "%");
             mtvInterestRate2.setText(StringUtils.excludeNull(earn2.getEarnings(), "0.0") + "%");
-            mtvInterestRate3.setText("");
-            mtvRange1.setText(StringUtils.excludeNull(earn1.getStartEarnings(), "0") + "万元-" + StringUtils.excludeNull(earn1.getEndEarnings(), "0") + "万元");
-            mtvRange2.setText(StringUtils.excludeNull(earn2.getStartEarnings(), "0") + "万元-" + StringUtils.excludeNull(earn2.getEndEarnings(), "0") + "万元");
-            mtvRange3.setText("");
+            if (StringUtils.isEquals(earn1.getEndEarnings(), "0") || TextUtils.isEmpty(earn1.getEndEarnings())) {
+                mtvRange1.setText(StringUtils.excludeNull(earn1.getStartEarnings(), "0") + "万元以上");
+            } else {
+                mtvRange1.setText(StringUtils.excludeNull(earn1.getStartEarnings(), "0") + "万元-" + earn1.getEndEarnings() + "万元");
+            }
+            if (StringUtils.isEquals(earn2.getEndEarnings(), "0") || TextUtils.isEmpty(earn2.getEndEarnings())) {
+                mtvRange2.setText(StringUtils.excludeNull(earn2.getStartEarnings(), "0") + "万元以上");
+            } else {
+                mtvRange2.setText(StringUtils.excludeNull(earn2.getStartEarnings(), "0") + "万元-" + earn2.getEndEarnings() + "万元");
+            }
             mllInterestRate3.setVisibility(View.GONE);
         } else {
             ProductEarn earn1 = earns.get(0);
@@ -153,9 +165,21 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
             mtvInterestRate1.setText(StringUtils.excludeNull(earn1.getEarnings(), "0.0") + "%");
             mtvInterestRate2.setText(StringUtils.excludeNull(earn2.getEarnings(), "0.0") + "%");
             mtvInterestRate3.setText(StringUtils.excludeNull(earn3.getEarnings(), "0.0") + "%");
-            mtvRange1.setText(StringUtils.excludeNull(earn1.getStartEarnings(), "0") + "万元-" + StringUtils.excludeNull(earn1.getEndEarnings(), "0") + "万元");
-            mtvRange2.setText(StringUtils.excludeNull(earn2.getStartEarnings(), "0") + "万元-" + StringUtils.excludeNull(earn2.getEndEarnings(), "0") + "万元");
-            mtvRange3.setText(StringUtils.excludeNull(earn3.getStartEarnings(), "0") + "万元-" + StringUtils.excludeNull(earn3.getEndEarnings(), "0") + "万元");
+            if (StringUtils.isEquals(earn1.getEndEarnings(), "0") || TextUtils.isEmpty(earn1.getEndEarnings())) {
+                mtvRange1.setText(StringUtils.excludeNull(earn1.getStartEarnings(), "0") + "万元以上");
+            } else {
+                mtvRange1.setText(StringUtils.excludeNull(earn1.getStartEarnings(), "0") + "万元-" + earn1.getEndEarnings() + "万元");
+            }
+            if (StringUtils.isEquals(earn2.getEndEarnings(), "0") || TextUtils.isEmpty(earn2.getEndEarnings())) {
+                mtvRange2.setText(StringUtils.excludeNull(earn2.getStartEarnings(), "0") + "万元以上");
+            } else {
+                mtvRange2.setText(StringUtils.excludeNull(earn2.getStartEarnings(), "0") + "万元-" + earn2.getEndEarnings() + "万元");
+            }
+            if (StringUtils.isEquals(earn3.getEndEarnings(), "0") || TextUtils.isEmpty(earn3.getEndEarnings())) {
+                mtvRange3.setText(StringUtils.excludeNull(earn3.getStartEarnings(), "0") + "万元以上");
+            } else {
+                mtvRange3.setText(StringUtils.excludeNull(earn3.getStartEarnings(), "0") + "万元-" + earn3.getEndEarnings() + "万元");
+            }
         }
     }
 
@@ -179,7 +203,7 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
                         return;
                     }
                     if (loginInfo.getStatus() == AppConstants.AuthenticationStatus.STATUS_2) {
-                        BrightPoint data= (BrightPoint) item.getTag();
+                        BrightPoint data = (BrightPoint) item.getTag();
                         data.setCreateTime(mProduct.getAgeLimit());
                         Intent intent = new Intent(activity, WebViewActivity.class);
                         intent.putExtra(IntentKey.FROM_WHAT, AppConstants.WebFromWhat.BRIGHT_POINT);
@@ -200,23 +224,23 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.ll_finance_mechanism:
                 //融资机构
-                intent=new Intent(this,MechanismActivity.class);
-                intent.putExtra(IntentKey.TITLE,"融资机构");
-                intent.putExtra(IntentKey.CONTENT,mProduct.getFundingAgencies());
+                intent = new Intent(this, MechanismActivity.class);
+                intent.putExtra(IntentKey.TITLE, "融资机构");
+                intent.putExtra(IntentKey.CONTENT, mProduct.getFundingAgencies());
                 startActivity(intent);
                 break;
             case R.id.ll_guarantee_mechanism:
                 //担保机构
-                intent=new Intent(this,MechanismActivity.class);
-                intent.putExtra(IntentKey.TITLE,"担保机构");
-                intent.putExtra(IntentKey.CONTENT,mProduct.getGuaranteeAgencies());
+                intent = new Intent(this, MechanismActivity.class);
+                intent.putExtra(IntentKey.TITLE, "担保机构");
+                intent.putExtra(IntentKey.CONTENT, mProduct.getGuaranteeAgencies());
                 startActivity(intent);
                 break;
             case R.id.ll_issue_mechanism:
                 //发行机构
-                intent=new Intent(this,MechanismActivity.class);
-                intent.putExtra(IntentKey.TITLE,"发行机构");
-                intent.putExtra(IntentKey.CONTENT,mProduct.getIssuer());
+                intent = new Intent(this, MechanismActivity.class);
+                intent.putExtra(IntentKey.TITLE, "发行机构");
+                intent.putExtra(IntentKey.CONTENT, mProduct.getIssuer());
                 startActivity(intent);
                 break;
             case R.id.ll_talk:

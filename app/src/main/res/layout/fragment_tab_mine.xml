@@ -4,7 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@mipmap/img_mine_bg">
+        <com.will.talentreview.view.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dip_10"
+            android:layout_marginBottom="@dimen/dip_15"
+            android:padding="@dimen/dip_3"
+            android:src="@mipmap/avatar"
+            android:background="@drawable/bg_round_white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include
+                android:id="@+id/include"
+                layout="@layout/common_title"/>
+        </LinearLayout>
 
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,21 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:background="@mipmap/img_mine_bg">
-                <com.will.talentreview.view.CircleImageView
-                    android:id="@+id/iv_avatar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="@dimen/dip_10"
-                    android:layout_marginBottom="@dimen/dip_15"
-                    android:padding="@dimen/dip_3"
-                    android:src="@mipmap/avatar"
-                    android:background="@drawable/bg_round_white"/>
-            </RelativeLayout>
+
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"

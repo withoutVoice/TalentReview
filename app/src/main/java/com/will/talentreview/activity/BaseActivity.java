@@ -107,7 +107,8 @@ public abstract class BaseActivity extends FragmentActivity {
      */
     public void showShortToast(String content) {
         if (toast == null) {
-            toast = Toast.makeText(activity, content, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(activity, null, Toast.LENGTH_SHORT);
+            toast.setText(content);
         } else {
             toast.setText(content);
             toast.setDuration(Toast.LENGTH_SHORT);

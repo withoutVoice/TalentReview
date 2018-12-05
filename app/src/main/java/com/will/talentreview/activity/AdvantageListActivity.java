@@ -84,8 +84,8 @@ public class AdvantageListActivity extends BaseActivity implements AdapterView.O
                 break;
             case AppConstants.HomeDataType.TYPE5:
                 mllHeader.setBackgroundResource(R.mipmap.img_advantage_header);
-                mtvHeader.setText("其实我们不一样");
-                commonTitle.setTitleCenter("平台优势");
+                mtvHeader.setText("");
+                commonTitle.setTitleCenter("风险警示");
                 break;
         }
         mNotices = new ArrayList<>();
