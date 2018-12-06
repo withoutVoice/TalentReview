@@ -58,6 +58,7 @@ public class AuthenticationActivity extends BaseActivity implements View.OnClick
     private ImageView mivPhoto1;
     private ImageView mivPhoto2;
     private TextView mtvSubmit;
+    private TextView mtvCancel;
     private RelativeLayout mrlPhoto1;
     private RelativeLayout mrlPhoto2;
 
@@ -93,12 +94,13 @@ public class AuthenticationActivity extends BaseActivity implements View.OnClick
         mtvSubmit = findViewById(R.id.tv_submit);
         mrlPhoto1 = findViewById(R.id.rl_card1);
         mrlPhoto2 = findViewById(R.id.rl_card2);
+        mtvCancel=findViewById(R.id.tv_cancel);
 
         mtvSubmit.setOnClickListener(this);
         mtvDate.setOnClickListener(this);
         mrlPhoto1.setOnClickListener(this);
         mrlPhoto2.setOnClickListener(this);
-        findViewById(R.id.tv_cancel).setOnClickListener(this);
+        mtvCancel.setOnClickListener(this);
 
     }
 
@@ -112,12 +114,14 @@ public class AuthenticationActivity extends BaseActivity implements View.OnClick
             case AppConstants.AuthenticationStatus.STATUS_1:
                 mtvStatus.setText("待审核");
                 mtvSubmit.setVisibility(View.GONE);
+                mtvCancel.setVisibility(View.INVISIBLE);
                 getDetail();
                 break;
             case AppConstants.AuthenticationStatus.STATUS_2:
                 mtvSubmit.setVisibility(View.GONE);
                 mtvStatus.setText("认证成功");
                 mtvStatus.setTextColor(Color.parseColor("#00cc99"));
+                mtvCancel.setVisibility(View.INVISIBLE);
                 getDetail();
                 break;
             case AppConstants.AuthenticationStatus.STATUS_3:

@@ -255,7 +255,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dip_10"
-                            android:text="新人专项"
+                            android:text="新人专享"
                             android:textSize="@dimen/text_size_large"
                             android:textColor="@color/text_color_gold_gray"/>
                     </LinearLayout>

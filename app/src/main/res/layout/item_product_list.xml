@@ -98,7 +98,7 @@
             android:layout_width="@dimen/dip_65"
             android:layout_height="@dimen/dip_65"
             android:scaleType="centerCrop"
-            android:src="@mipmap/default_pic"/>
+            android:src="@mipmap/img_default_cover"/>
     </LinearLayout>
     <View
         android:id="@+id/v_bought_divider"

@@ -136,7 +136,7 @@
                         android:layout_marginLeft="@dimen/dip_10"
                         android:layout_marginRight="@dimen/dip_10"
                         android:layout_marginTop="@dimen/dip_12"
-                        android:src="@mipmap/ic_verification_code" />
+                        android:src="@mipmap/ic_date" />
 
                     <TextView
                         android:id="@+id/tv_effective_date"

@@ -75,13 +75,13 @@ public class UpdatePhoneActivity extends BaseActivity implements View.OnClickLis
 
         if(!isFirstStep){
             metPhone.setHint("新手机号");
-            mtvSubmit.setText("下一步");
+            mtvSubmit.setText("确定");
         }else {
             LoginInfo loginInfo = MyApplication.getInstance().getLoginInfo();
             if (loginInfo != null) {
                 metPhone.setText(StringUtils.excludeNull(loginInfo.getMobilePhone()));
             }
-            mtvSubmit.setText("确定");
+            mtvSubmit.setText("下一步");
         }
     }
 

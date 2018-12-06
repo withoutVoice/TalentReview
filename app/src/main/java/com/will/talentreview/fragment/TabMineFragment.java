@@ -88,7 +88,7 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected void initView(View contentView) {
-        CommonTitle commonTitle=new CommonTitle(getActivity(),contentView.findViewById(R.id.include),CommonTitle.TITLE_TYPE_5);
+        CommonTitle commonTitle = new CommonTitle(getActivity(), contentView.findViewById(R.id.include), CommonTitle.TITLE_TYPE_5);
         commonTitle.setTitleCenter("个人中心");
         mivAvatar = contentView.findViewById(R.id.iv_avatar);
         mtvName = contentView.findViewById(R.id.tv_name);
@@ -126,21 +126,21 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
                 birthday = "";
             }
             GlideUtil.showAvatar(getActivity(), loginInfo.getHeadUrl(), mivAvatar);
-            mtvName.setText(StringUtils.excludeNull(loginInfo.getNickName(), StringUtils.excludeNull(loginInfo.getMobilePhone(),"未知")));
+            mtvName.setText(StringUtils.excludeNull(loginInfo.getMobilePhone(), "未知"));
             mtvBirthday.setText(birthday);
             switch (loginInfo.getStatus()) {
                 case AppConstants.AuthenticationStatus.STATUS_0:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "未认证")+" >");
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "未认证") + " >");
                     break;
                 case AppConstants.AuthenticationStatus.STATUS_1:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "待审核")+" >");
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "待审核") + " >");
                     break;
                 case AppConstants.AuthenticationStatus.STATUS_2:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "已认证")+" >");
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "已认证") + " >");
                     mtvAuthentication.setTextColor(Color.parseColor("#00cc99"));
                     break;
                 case AppConstants.AuthenticationStatus.STATUS_3:
-                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "认证失败")+" >");
+                    mtvAuthentication.setText(StringUtils.excludeNull(loginInfo.getStatusStr(), "认证失败") + " >");
                     break;
             }
 
@@ -203,7 +203,7 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             getLoginInfo();
         }
     }
@@ -291,6 +291,8 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
             public void onPermissionsGranted(int requestCode, List<String> perms, boolean isAllGranted) {
                 if (requestCode == PhotoUtil.REQUEST_TASK_PHOTO) {
                     photoUtil.takePhoto();
+                } else if (requestCode == PhotoUtil.REQUEST_CROP_PICTURE) {
+                    photoUtil.cropImageForAvatar(cropUri);
                 }
             }
 
@@ -298,6 +300,8 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
             public void onPermissionsDenied(int requestCode, List<String> perms, boolean isAllDenied) {
                 if (requestCode == PhotoUtil.REQUEST_TASK_PHOTO) {
                     showShortToast("请允许拍照相关权限");
+                } else if (requestCode == PhotoUtil.REQUEST_CROP_PICTURE) {
+                    showShortToast("请允许存储权限");
                 }
             }
         });
@@ -318,19 +322,22 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
                 if (path == null) {
                     return;
                 }
-                photoUtil.cropImageForAvatar(UriUtil.getUriFromFile(activity, path));
+                cropUri = UriUtil.getUriFromFile(activity, path);
+                photoUtil.cropImageForAvatar(cropUri);
             } else if (requestCode == PhotoUtil.REQUEST_TASK_PICTURE) {
                 if (data.getData() == null) {
                     return;
                 }
-                Uri uri = data.getData();
-                photoUtil.cropImageForAvatar(uri);
+                cropUri = data.getData();
+                photoUtil.cropImageForAvatar(cropUri);
             } else if (requestCode == PhotoUtil.REQUEST_CROP_PICTURE) {
                 String path = photoUtil.getCropImagePath();
                 uploadImage(path);
             }
         }
     }
+
+    private Uri cropUri;
 
     private void uploadImage(String path) {
         showProgressDialog("正在上传头像，请稍后...", true, TAG_UPLOAD);
@@ -372,7 +379,7 @@ public class TabMineFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void getLoginInfo() {
-        if(MyApplication.getInstance().getLoginInfo()==null){
+        if (MyApplication.getInstance().getLoginInfo() == null) {
             return;
         }
         RequestParam param = new RequestParam();

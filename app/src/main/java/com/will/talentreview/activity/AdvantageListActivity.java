@@ -75,7 +75,7 @@ public class AdvantageListActivity extends BaseActivity implements AdapterView.O
             case AppConstants.HomeDataType.TYPE3:
                 mllHeader.setBackgroundResource(R.mipmap.img_new_player_header);
                 mtvHeader.setText("即使是不成熟的尝试，也胜于胎死腹中的策略");
-                commonTitle.setTitleCenter("新手指南");
+                commonTitle.setTitleCenter("新人指南");
                 break;
             case AppConstants.HomeDataType.TYPE4:
                 mllHeader.setBackgroundResource(R.mipmap.img_school_header);

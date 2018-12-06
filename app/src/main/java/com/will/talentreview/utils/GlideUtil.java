@@ -20,15 +20,15 @@ public class GlideUtil {
         if (context == null || imageView == null) {
             return;
         }
-        Glide.with(context).load(url).centerCrop().error(R.mipmap.default_pic).into(imageView);
+        Glide.with(context).load(url).centerCrop().error(R.mipmap.img_default_banner).placeholder(R.mipmap.img_default_banner).into(imageView);
     }
 
-//    public static void showAvatar(Context context, String url, ImageView imageView) {
-//        if (context == null || imageView == null) {
-//            return;
-//        }
-//        Glide.with(context).load(url).centerCrop().into(imageView);
-//    }
+    public static void showProductCover(Context context, String url, ImageView imageView) {
+        if (context == null || imageView == null) {
+            return;
+        }
+        Glide.with(context).load(url).centerCrop().error(R.mipmap.img_default_cover).placeholder(R.mipmap.img_default_cover).into(imageView);
+    }
 
     public static void showAvatar(Context context, String url, final ImageView imageView) {
         if (context == null || imageView == null) {

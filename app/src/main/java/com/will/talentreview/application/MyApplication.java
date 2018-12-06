@@ -17,6 +17,7 @@ import com.will.talentreview.constant.AppConstants;
 import com.will.talentreview.constant.Config;
 import com.will.talentreview.entity.LoginInfo;
 import com.will.talentreview.utils.CommUtils;
+import com.will.talentreview.utils.CrashHandler;
 
 /**
  * @author chenwei
@@ -60,6 +61,7 @@ public class MyApplication extends Application {
         instance = this;
         packageName = getPackageName();
         initConfig();
+        CrashHandler.getInstance().init(this);
     }
 
     private void initConfig() {

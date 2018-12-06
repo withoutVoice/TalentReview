@@ -50,6 +50,7 @@ public class NoticeListAdapter extends BaseAdapter{
     private class ViewHolder{
         TextView tvTitle;
         TextView tvDate;
+        View vDivider;
     }
 
     @Override
@@ -60,6 +61,7 @@ public class NoticeListAdapter extends BaseAdapter{
             holder=new ViewHolder();
             holder.tvTitle=view.findViewById(R.id.tv_title);
             holder.tvDate=view.findViewById(R.id.tv_date);
+            holder.vDivider=view.findViewById(R.id.v_divider);
             view.setTag(holder);
         }else {
             holder= (ViewHolder) view.getTag();
@@ -67,6 +69,11 @@ public class NoticeListAdapter extends BaseAdapter{
         NoticeInfo notice=getItem(i);
         holder.tvTitle.setText(StringUtils.excludeNull(notice.getTitle()));
         holder.tvDate.setText(notice.getCreateTime());
+        if(i<getCount()-1){
+            holder.vDivider.setVisibility(View.VISIBLE);
+        }else {
+            holder.vDivider.setVisibility(View.GONE);
+        }
         return view;
     }
 }

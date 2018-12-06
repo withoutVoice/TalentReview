@@ -79,7 +79,7 @@ public class ProductListAdapter extends BaseAdapter {
         Product product = getItem(i);
         holder.tvName.setText(StringUtils.excludeNull(product.getProductName(), "未知"));
         holder.tvRate.setText(StringUtils.excludeNull(product.getAnnualInterestRate(), "0.0") + "%");
-        holder.tvTerm.setText(StringUtils.excludeNull(product.getAgeLimit(), "0") + "年");
+        holder.tvTerm.setText(StringUtils.excludeNull(product.getAgeLimit(), "0") + "个月");
         holder.tvType.setText(StringUtils.excludeNull(product.getProductRule(), "0") + "万元起购  |  " + StringUtils.excludeNull(product.getProductType(), "未知"));
         GlideUtil.showCommonImage(mContext, product.getUrl(), holder.ivCover);
         int visibility=StringUtils.isEquals("1", product.getIsBought()) ? View.VISIBLE : View.GONE;

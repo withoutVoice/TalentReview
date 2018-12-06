@@ -128,6 +128,9 @@ public class PhotoUtil {
      * @param orgUri   剪裁图片的原图uri
      */
     public void cropImageForAvatar(Uri orgUri) {
+        if(!PermissionUtil.getExternalStoragePermissions(activity,REQUEST_CROP_PICTURE)){
+            return;
+        }
         if (orgUri == null) {
             return;
         }
